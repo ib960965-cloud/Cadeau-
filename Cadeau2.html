@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benjamine la femme que j'aime</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+            height: 100vh;
+            user-select: none;
+        }
+
+        .galaxy-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Fond spatial réaliste */
+        .space-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(31, 40, 85, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(76, 35, 112, 0.6) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(13, 27, 72, 0.7) 0%, transparent 50%),
+                linear-gradient(135deg, #000 0%, #0a0a2a 100%);
+        }
+
+        /* Étoiles réalistes */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 8s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2);
+            }
+        }
+
+        .star.shooting {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            border-radius: 0;
+            animation: shooting 4s linear;
+            box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
+        }
+
+        @keyframes shooting {
+            0% { 
+                transform: translateX(-100px) translateY(0) rotate(45deg); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateX(calc(100vw + 100px)) translateY(100px) rotate(45deg); 
+                opacity: 0; 
+            }
+        }
+
+        /* SOLEIL COMME AVANT - SIMPLE ET FLUIDE */
+        .sun-container {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .sun {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #ffcc00, #ff9900, #ff6600);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 60px #ff9900,
+                0 0 100px #ff6600,
+                0 0 150px rgba(255, 102, 0, 0.5);
+            cursor: pointer;
+            animation: pulse 4s infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sun-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 204, 0, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glowPulse 4s infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0% { 
+                transform: scale(1); 
+                box-shadow: 
+                    0 0 60px #ff9900,
+                    0 0 100px #ff6600,
+                    0 0 150px rgba(255, 102, 0, 0.5);
+            }
+            100% { 
+                transform: scale(1.1); 
+                box-shadow: 
+                    0 0 80px #ffcc00,
+                    0 0 140px #ff9900,
+                    0 0 200px rgba(255, 153, 0, 0.6);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        /* Cœurs réalistes */
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 28px;
+            color: #ff3366;
+            text-shadow: 
+                0 0 10px #ff3366, 
+                0 0 20px #ff3366,
+                0 0 30px rgba(255, 51, 102, 0.7);
+            opacity: 0.9;
+            animation: heartFloat 20s infinite linear;
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 0 8px rgba(255, 51, 102, 0.8));
+        }
+
+        .heart:hover {
+            transform: scale(1.8);
+            z-index: 15;
+            animation-play-state: paused;
+        }
+
+        @keyframes heartFloat {
+            0% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+                opacity: 0.7;
+            }
+            25% { 
+                transform: translateY(-40px) rotate(90deg) scale(1.2); 
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-80px) rotate(180deg) scale(1.4); 
+                opacity: 0.9;
+            }
+            75% { 
+                transform: translateY(-40px) rotate(270deg) scale(1.2); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(0) rotate(360deg) scale(1); 
+                opacity: 0.7;
+            }
+        }
+
+        /* Messages d'amour */
+        .message-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .message {
+            position: absolute;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 
+                0 0 15px rgba(255, 105, 180, 0.9),
+                0 0 30px rgba(255, 105, 180, 0.7),
+                0 0 45px rgba(255, 105, 180, 0.5);
+            opacity: 0;
+            transition: all 2.5s cubic-bezier(0.19, 1, 0.22, 1);
+            max-width: 85%;
+            padding: 40px 50px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .message.active {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
+        .message.typing {
+            overflow: hidden;
+            border-right: 4px solid #ff69b4;
+            white-space: nowrap;
+            animation: typing 4s steps(50, end), blink-caret 0.9s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff69b4 }
+        }
+
+        /* Effet de lumière dorée */
+        .golden-light {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 20%, 
+                rgba(255, 215, 0, 0.7) 0%, 
+                rgba(255, 215, 0, 0.4) 30%, 
+                rgba(255, 215, 0, 0.2) 50%, 
+                transparent 80%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 15;
+            transition: opacity 2s ease-out;
+            mix-blend-mode: screen;
+        }
+
+        .golden-light.active {
+            opacity: 1;
+        }
+
+        /* Proposition finale */
+        .proposal-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 25;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 2s ease-in-out;
+        }
+
+        .proposal-container.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .proposal-question {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: #fff;
+            text-shadow: 
+                0 0 20px rgba(255, 105, 180, 1),
+                0 0 40px rgba(255, 105, 180, 0.8),
+                0 0 60px rgba(255, 105, 180, 0.6);
+            margin-bottom: 60px;
+            text-align: center;
+            animation: proposalPulse 3s infinite alternate;
+        }
+
+        @keyframes proposalPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .proposal-buttons {
+            display: flex;
+            gap: 40px;
+        }
+
+        .proposal-btn {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .proposal-btn.yes {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .proposal-btn.no {
+            background: linear-gradient(135deg, #f44336, #da190b);
+            color: white;
+        }
+
+        .proposal-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Contrôles */
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 30;
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            padding: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.15);
+        }
+
+        /* Message court */
+        .short-message {
+            position: absolute;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff69b4;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.9);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 25;
+            transition: all 1.5s ease;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .message {
+                font-size: 2.2rem;
+                padding: 25px;
+            }
+            
+            .sun {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .sun-glow {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .heart {
+                font-size: 22px;
+            }
+            
+            .proposal-question {
+                font-size: 3rem;
+            }
+            
+            .proposal-btn {
+                font-size: 1.5rem;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="galaxy-container" id="galaxy">
+        <div class="space-background"></div>
+        <div class="stars" id="stars"></div>
+        
+        <div class="sun-container">
+            <div class="sun-glow"></div>
+            <div class="sun" id="sun"></div>
+        </div>
+        
+        <div class="hearts-container" id="heartsContainer"></div>
+        <div class="message-container" id="messageContainer"></div>
+        <div class="golden-light" id="goldenLight"></div>
+        
+        <div class="proposal-container" id="proposalContainer">
+            <div class="proposal-question">Veux-tu être ma femme ?</div>
+            <div class="proposal-buttons">
+                <button class="proposal-btn yes" id="yesBtn">OUI</button>
+                <button class="proposal-btn no" id="noBtn">NON</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="control-btn" id="musicToggle">🔇</button>
+            <button class="control-btn" id="replayBtn">↺</button>
+        </div>
+        
+        <audio id="backgroundMusic" loop>
+            <source src="https://files.catbox.moe/acdsmj.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // Messages d'amour
+        const messages = [
+            "Benjamine…",
+            "Tu sais…",
+            "Je t'aime plus que tout mon coeur …",
+            "Je ne peux pas me passer de toi…",
+            "Tu es mon tout…",
+            "Mon premier amour…",
+            "Et la seule personne que j'aime dans ce bas monde…",
+            "Une histoire sans toi…",
+            "C'est comme un avion sans pilote…",
+            "Tu es l'amour de ma vie 💖",
+            " Sois mon guide dans mes differents  parcourt 🌠",
+            " Joyeux annivairsaire ma grande dame ",
+             "Que ce jour soit un jour de bonheur et de souvenir innoubliable pour toi ",
+              " Que Dieu te donne longue vie et santé ",
+                " Et de realisé tes réve au pret des personne que t'aime ",
+                 " Moi Ibrahima Barry je t'aime plus que tout 🌹 ",
+        ];
+
+        // Messages courts pour les cœurs
+        const shortMessages = [
+            "Je pense à toi",
+            "Toujours toi",
+            "Mon cœur bat pour toi",
+            "À jamais",
+            "Pour l'éternité",
+            "Tu me manques",
+            "Mon amour",
+            "Ma destinée"
+        ];
+
+        // Variables globales
+        let currentMessageIndex = 0;
+        let isPlaying = false;
+        let musicPlaying = false;
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createHearts();
+            setupEventListeners();
+            startMessageSequence();
+            createShootingStars();
+            
+            // Activer la musique automatiquement
+            setTimeout(() => {
+                const music = document.getElementById('backgroundMusic');
+                const musicToggle = document.getElementById('musicToggle');
+                
+                // Essayer de jouer la musique automatiquement
+                const playMusic = () => {
+                    music.play().then(() => {
+                        musicPlaying = true;
+                        musicToggle.textContent = '🎵';
+                    }).catch(e => {
+                        console.log("Lecture automatique bloquée, attente d'interaction utilisateur");
+                        musicToggle.textContent = '🔇';
+                    });
+                };
+                
+                // Essayer immédiatement
+                playMusic();
+                
+                // Réessayer après un clic utilisateur
+                document.addEventListener('click', function() {
+                    if (!musicPlaying) {
+                        playMusic();
+                    }
+                }, { once: true });
+            }, 1000);
+        });
+
+        // Création des étoiles réalistes
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 400;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Position aléatoire avec distribution naturelle
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Taille aléatoire avec plus de petites étoiles
+                const size = Math.pow(Math.random(), 2) * 4 + 0.5;
+                
+                // Couleur légèrement variée
+                const brightness = 0.7 + Math.random() * 0.3;
+                const color = `rgba(255, 255, 255, ${brightness})`;
+                
+                // Style
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.backgroundColor = color;
+                
+                // Délai et durée d'animation aléatoires
+                star.style.animationDelay = `${Math.random() * 10}s`;
+                star.style.animationDuration = `${5 + Math.random() * 10}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Création des étoiles filantes réalistes
+        function createShootingStars() {
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    const starsContainer = document.getElementById('stars');
+                    const shootingStar = document.createElement('div');
+                    shootingStar.className = 'star shooting';
+                    
+                    const startY = Math.random() * 40;
+                    const length = 80 + Math.random() * 120;
+                    const duration = 2 + Math.random() * 3;
+                    
+                    shootingStar.style.width = `${length}px`;
+                    shootingStar.style.height = '2px';
+                    shootingStar.style.left = '0px';
+                    shootingStar.style.top = `${startY}%`;
+                    shootingStar.style.opacity = '0';
+                    shootingStar.style.animationDuration = `${duration}s`;
+                    
+                    starsContainer.appendChild(shootingStar);
+                    
+                    setTimeout(() => {
+                        if (shootingStar.parentNode) {
+                            starsContainer.removeChild(shootingStar);
+                        }
+                    }, duration * 1000);
+                }
+            }, 2000);
+        }
+
+        // Création des cœurs réalistes
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartCount = 25;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                
+                // Position aléatoire avec distribution naturelle
+                const x = Math.random() * 85 + 7.5;
+                const y = Math.random() * 85 + 7.5;
+                
+                // Style
+                heart.style.left = `${x}%`;
+                heart.style.top = `${y}%`;
+                heart.style.fontSize = `${20 + Math.random() * 25}px`;
+                
+                // Animation variée
+                heart.style.animationDelay = `${Math.random() * 20}s`;
+                heart.style.animationDuration = `${15 + Math.random() * 15}s`;
+                
+                // Événement de clic
+                heart.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    showShortMessage(this);
+                });
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Configuration des événements
+        function setupEventListeners() {
+            const sun = document.getElementById('sun');
+            const musicToggle = document.getElementById('musicToggle');
+            const replayBtn = document.getElementById('replayBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            
+            // Clic sur le soleil - SIMPLE COMME AVANT
+            sun.addEventListener('click', function() {
+                const goldenLight = document.getElementById('goldenLight');
+                goldenLight.classList.add('active');
+                
+                // Créer des particules réalistes
+                createRealisticParticles();
+                
+                setTimeout(() => {
+                    goldenLight.classList.remove('active');
+                }, 2000);
+            });
+            
+            // Bouton musique
+            musicToggle.addEventListener('click', function() {
+                const music = document.getElementById('backgroundMusic');
+                
+                if (musicPlaying) {
+                    music.pause();
+                    musicPlaying = false;
+                    this.textContent = '';
+                } else {
+                    music.play().catch(e => {
+                        console.log("Erreur de lecture audio");
+                    });
+                    musicPlaying = true;
+                    this.textContent = '🎵';
+                }
+            });
+            
+            // Bouton rejouer
+            replayBtn.addEventListener('click', function() {
+                currentMessageIndex = 0;
+                const proposalContainer = document.getElementById('proposalContainer');
+                proposalContainer.classList.remove('active');
+                startMessageSequence();
+            });
+            
+            // Bouton OUI
+            yesBtn.addEventListener('click', function() {
+                // Redirection vers WhatsApp avec message
+                const phoneNumber = '224620769837';
+                const message = encodeURIComponent("OUI ! Je veux être ta femme! 💖");
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+            });
+            
+            // Bouton NON
+            noBtn.addEventListener('click', function() {
+                // Animation de tristesse
+                this.style.transform = 'scale(0.8)';
+                this.style.opacity = '0.7';
+                
+                // Redirection vers WhatsApp avec message de tristesse
+                const phoneNumber = '224620769837';
+                const message = encodeURIComponent("Je suis triste mais je comprends... J'espère que tu changeras d'avis 💔");
+                setTimeout(() => {
+                    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+                }, 1000);
+            });
+        }
+
+        // Créer des particules réalistes
+        function createRealisticParticles() {
+            const galaxy = document.getElementById('galaxy');
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'star';
+                
+                // Position au centre (soleil)
+                particle.style.left = '50%';
+                particle.style.top = '20%';
+                
+                // Taille aléatoire
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Couleur chaude
+                const hue = 30 + Math.random() * 30;
+                particle.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+                particle.style.boxShadow = `0 0 ${size * 3}px hsl(${hue}, 100%, 50%)`;
+                
+                // Animation de particule réaliste
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 100;
+                const duration = Math.random() * 2 + 1;
+                
+                particle.style.animation = 'none';
+                particle.style.transition = `all ${duration}s ease-out`;
+                
+                galaxy.appendChild(particle);
+                
+                // Déclencher l'animation
+                setTimeout(() => {
+                    particle.style.left = `calc(50% + ${Math.cos(angle) * distance}px)`;
+                    particle.style.top = `calc(20% + ${Math.sin(angle) * distance}px)`;
+                    particle.style.opacity = '0';
+                }, 10);
+                
+                // Supprimer après l'animation
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        galaxy.removeChild(particle);
+                    }
+                }, duration * 1000);
+            }
+        }
+
+        // Séquence des messages
+        function startMessageSequence() {
+            isPlaying = true;
+            showMessage(currentMessageIndex);
+        }
+
+        // Affichage d'un message
+        function showMessage(index) {
+            if (index >= messages.length) {
+                isPlaying = false;
+                // Afficher la proposition après un délai
+                setTimeout(() => {
+                    const proposalContainer = document.getElementById('proposalContainer');
+                    proposalContainer.classList.add('active');
+                }, 2000);
+                return;
+            }
+            
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.innerHTML = '';
+            
+            const message = document.createElement('div');
+            message.className = 'message typing';
+            message.textContent = messages[index];
+            
+            messageContainer.appendChild(message);
+            
+            // Animation d'apparition
+            setTimeout(() => {
+                message.classList.remove('typing');
+                message.classList.add('active');
+            }, 100);
+            
+            // Passage au message suivant
+            setTimeout(() => {
+                message.classList.remove('active');
+                
+                setTimeout(() => {
+                    currentMessageIndex++;
+                    showMessage(currentMessageIndex);
+                }, 1500);
+            }, 4000);
+        }
+
+        // Affichage d'un message court
+        function showShortMessage(heart) {
+            const message = document.createElement('div');
+            message.className = 'short-message';
+            message.textContent = shortMessages[Math.floor(Math.random() * shortMessages.length)];
+            
+            // Position
+            const rect = heart.getBoundingClientRect();
+            message.style.left = `${rect.left + rect.width / 2}px`;
+            message.style.top = `${rect.top}px`;
+            
+            document.body.appendChild(message);
+            
+            // Animation réaliste
+            setTimeout(() => {
+                message.style.opacity = '1';
+                message.style.transform = 'translateY(-40px) scale(1.2)';
+            }, 10);
+            
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transform = 'translateY(-80px) scale(1)';
+                
+                setTimeout(() => {
+                    document.body.removeChild(message);
+                }, 1000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
